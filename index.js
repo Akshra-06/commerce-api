@@ -24,9 +24,13 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 
+// Host binding: default to localhost for local development, but allow
+// overriding with the HOST env var (set HOST=0.0.0.0 on Render).
+const HOST = process.env.HOST || '127.0.0.1';
+
 // connect to database then start server
 connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`Server listening on http://${HOST}:${PORT}`);
   });
 });
